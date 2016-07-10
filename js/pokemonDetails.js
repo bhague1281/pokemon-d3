@@ -10,82 +10,100 @@
                     .attr('height', height)
                     .attr('width', width);
 
-  function drawPokemonDetails(json) {
-    // add stat nodes' x and y coordinates
-    json.stats = json.stats.map(function(stat) {
-      stat.x = Math.random() * width - nodeWidth;
-      stat.y = Math.random() * height - nodeWidth;
+  // set initial position for the main node
+  function addStartPosition(pokemon, coordinates) {
+    pokemon.x = coordinates[0];
+    pokemon.y = coordinates[1];
+  }
+
+  // add stat nodes' x and y coordinates, then return the pokemon
+  function formatStats(pokemon, statNodeWidth) {
+    pokemon.stats = pokemon.stats.map(function(stat) {
+      stat.x = Math.random() * width - statNodeWidth;
+      stat.y = Math.random() * height - statNodeWidth;
       return stat;
     });
+  }
 
-    // generate links between stats and main node
-    var links = json.stats.map(function(stat) {
-      return { source: stat, target: json }
-    });
-
-    // add links
+  // using the pokemon, draw links from each pokemon's stats to the pokemon
+  function drawLinks(pokemon) {
     var drawnLinks = pokeDetails.selectAll('.link')
-      .data(links)
+      .data(pokemon.stats)
       .enter()
       .append('line')
-      .attr('x1', function(d) { return d.source.x })
-      .attr('y1', function(d) { return d.source.y })
-      .attr('x2', width / 2)
-      .attr('y2', height / 2)
-      .style('stroke', 'black')
+      .attr('x1', function(d) { return d.x; })
+      .attr('y1', function(d) { return d.y; })
+      .attr('x2', pokemon.x)
+      .attr('y2', pokemon.y)
+      .style('stroke', 'black');
 
-    // add main node
+    return drawnLinks;
+  }
+
+  // add main pokemon node
+  function drawMainNode(pokemon, size) {
     var node = pokeDetails.selectAll('.detail-node')
-      .data([json])
+      .data([pokemon])
       .enter().append('g')
-      .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
+      .attr('transform', 'translate(' + pokemon.x + ',' + pokemon.y + ')');
 
-    // add main node's circle
+    // add node's circle
     node.append('svg:circle')
       .attr('class', 'detail-circle')
-      .attr('r', nodeWidth)
-      .attr('fill', 'orange')
+      .attr('r', size)
+      .attr('fill', 'orange');
 
-    // add main node's text
+    // add node's text
     node.append('text')
       .attr('class', 'name')
       .attr('text-anchor', 'middle')
       .text(function(d) { return d.name; });
 
-    // add main node's image
+    // add node's image
     node.append('svg:image')
       .attr('class', 'sprite')
       .attr('xlink:href', function(d) { return d.sprites.front_default; })
       .attr('width', spriteHeight)
-      .attr('height', spriteHeight)
+      .attr('height', spriteHeight);
 
-    // add stat nodes
-    var stats = pokeDetails.selectAll('.stat-node')
-      .data(json.stats)
+    return node;
+  }
+
+  // add stat nodes, make stats draggable & update drawn links on drag
+  function drawStatNodes(pokemon, statNodeWidth, drawnLinks) {
+    var statNodes = pokeDetails.selectAll('.stat-node')
+      .data(pokemon.stats)
       .enter().append('g')
-      .attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')' })
+      .attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; })
       .call(d3.drag().on('drag', function(d) {
         d.x = d3.event.x;
         d.y = d3.event.y;
         d3.select(this).attr('transform', 'translate(' + d.x + ',' + d.y + ')');
         drawnLinks
-          .attr('x1', function(d) { return d.source.x })
-          .attr('y1', function(d) { return d.source.y })
-          .attr('x2', width / 2)
-          .attr('y2', height / 2)
-      }))
+          .attr('x1', function(d) { return d.x; })
+          .attr('y1', function(d) { return d.y; });
+      }));
 
     // add stat nodes' circles
-    stats.append('svg:circle')
+    statNodes.append('svg:circle')
       .attr('class', 'stat-circle')
-      .attr('r', nodeWidth)
-      .attr('fill', 'red')
+      .attr('r', statNodeWidth)
+      .attr('fill', 'red');
 
     // add stat nodes' text
-    stats.append('text')
+    statNodes.append('text')
       .attr('class', 'stat-name')
       .attr('text-anchor', 'middle')
-      .text(function(d) { return d.stat.name + ' base:' + d.base_stat })
+      .text(function(d) { return d.stat.name + ' base:' + d.base_stat; });
+  }
+
+  // add start position, get stats, then draw the links, main node, and stat nodes
+  function drawPokemonDetails(pokemon) {
+    addStartPosition(pokemon, [width / 2, height / 2]);
+    formatStats(pokemon, nodeWidth);
+    var drawnLinks = drawLinks(pokemon);
+    drawMainNode(pokemon, nodeWidth);
+    drawStatNodes(pokemon, nodeWidth, drawnLinks);
   }
 
   fetch('http://pokeapi.co/api/v2/pokemon/' + pokemonId, { cache: 'default' })
