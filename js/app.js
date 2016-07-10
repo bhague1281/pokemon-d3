@@ -53,6 +53,7 @@
       return response.json();
     })
     .then(function(json) {
+      console.log('done');
       drawPokemonNodes(json);
     });
 }());

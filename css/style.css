@@ -7,18 +7,21 @@ body {
   background-image: linear-gradient(top, yellow, purple);
   font-family: Helvetica, sans-serif; }
 
+h1, h2 {
+  text-align: center; }
+
 .details .name {
   text-transform: capitalize;
   font-weight: bold;
   font-size: 30px; }
-
-.original .name {
-  text-transform: capitalize; }
 
 .details .sprite:hover {
   -webkit-transform: scale(2.5, 2.5) translate(50%, 50%);
   transform: scale(2, 2) translate(-48%, -50%);
   -webkit-transition: transform 2s;
   transition: transform 2s; }
+
+.original .name {
+  text-transform: capitalize; }
 
 /*# sourceMappingURL=style.css.map */
