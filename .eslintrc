@@ -6,7 +6,9 @@
     "jquery": true
   },
 
-  "globals": {},
+  "globals": {
+    "d3": true
+  },
 
   "rules": {
     "vars-on-top": 0,
