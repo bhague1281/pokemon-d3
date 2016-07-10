@@ -3,6 +3,7 @@
   var width = 800;
   var pokemonId = 4;
   var pokemonNodeWidth = 100;
+  var spriteHeight = 96;
 
   var pokeDetails = d3.select('#pokemon-details')
                     .append('svg')
@@ -21,13 +22,20 @@
     node.append('svg:circle')
       .attr('class', 'detail-node')
       .attr('r', pokemonNodeWidth)
-      .attr('fill', 'orange');
+      .attr('fill', 'orange')
 
     // add main node's text
     node.append('text')
       .attr('class', 'name')
       .attr('text-anchor', 'middle')
       .text(function(d) { return d.name; });
+
+    // add image inside circle
+    node.append('svg:image')
+      .attr('class', 'sprite')
+      .attr('xlink:href', function(d) { return d.sprites.front_default; })
+      .attr('width', spriteHeight)
+      .attr('height', spriteHeight)
   }
 
   fetch('http://pokeapi.co/api/v2/pokemon/' + pokemonId, { cache: 'default' })

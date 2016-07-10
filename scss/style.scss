@@ -1,3 +1,22 @@
 body {
   font-family: Helvetica, sans-serif;
 }
+
+.details .name {
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.details .sprite {
+  position: relative;
+  z-index: 100;
+
+  &:hover {
+    -webkit-transform: scale(2.5, 2.5) translate(50%, 50%);
+    transform: scale(2, 2) translate(-48%, -50%);
+
+    -webkit-transition: transform 2s;
+    transition: transform 2s;
+  }
+}
