@@ -6,13 +6,10 @@ body {
   font-weight: bold;
   font-size: 30px; }
 
-.details .sprite {
-  position: relative;
-  z-index: 100; }
-  .details .sprite:hover {
-    -webkit-transform: scale(2.5, 2.5) translate(50%, 50%);
-    transform: scale(2, 2) translate(-48%, -50%);
-    -webkit-transition: transform 2s;
-    transition: transform 2s; }
+.details .sprite:hover {
+  -webkit-transform: scale(2.5, 2.5) translate(50%, 50%);
+  transform: scale(2, 2) translate(-48%, -50%);
+  -webkit-transition: transform 2s;
+  transition: transform 2s; }
 
 /*# sourceMappingURL=style.css.map */
