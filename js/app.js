@@ -1,8 +1,8 @@
 (function() {
   var height = 1000;
-  var width = 800;
+  var width = 1200;
   var pokemonLimit = 151;
-  var nodeWidth = 10;
+  var nodeWidth = 20;
 
   var pokeGraph = d3.select('#pokemon')
                     .append('svg')
@@ -10,7 +10,7 @@
                     .attr('width', width);
 
   function translateXY(x, y) {
-    return 'translate(' + x + ',' + y + ')'
+    return 'translate(' + x + ',' + y + ')';
   }
 
   function randomColor() {
@@ -22,8 +22,8 @@
 
   function drawPokemonNodes(json) {
     var pokemon = json.results.map(function(monster) {
-      monster.x = Math.random() * (width - nodeWidth * 2) + nodeWidth;
-      monster.y = Math.random() * (height - nodeWidth * 2) + nodeWidth;
+      monster.x = Math.random() * (width - nodeWidth * 3) + nodeWidth * 2;
+      monster.y = Math.random() * (height - nodeWidth * 3) + nodeWidth * 2;
       return monster;
     });
 
@@ -31,18 +31,20 @@
     var nodes = pokeGraph.selectAll('.node')
       .data(pokemon)
       .enter().append('g')
-      .attr('transform', function(d) { return translateXY(d.x, d.y) });
+      .attr('transform', function(d) { return translateXY(d.x, d.y); });
 
     // add circles
     nodes.append('svg:circle')
       .attr('class', 'node')
       .attr('r', nodeWidth)
-      .attr('fill', function() { return randomColor(); });
+      .attr('fill', function() { return randomColor(); })
+      .attr('stroke', 'red');
 
     // add text
     nodes.append('text')
-      .attr('dx', function(d) { return -nodeWidth; })
-      .attr('dy', function(d) { return -nodeWidth; })
+      .attr('class', 'name')
+      .attr('dx', -nodeWidth)
+      .attr('dy', -nodeWidth)
       .text(function(d) { return d.name; });
   }
 

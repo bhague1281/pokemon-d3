@@ -1,10 +1,19 @@
 body {
+  margin: 0;
+  padding: 0;
+  background-image: -webkit-linear-gradient(top, yellow, purple);
+  background-image: -moz-linear-gradient(top, yellow, purple);
+  background-image: -o-linear-gradient(top, yellow, purple);
+  background-image: linear-gradient(top, yellow, purple);
   font-family: Helvetica, sans-serif; }
 
 .details .name {
   text-transform: capitalize;
   font-weight: bold;
   font-size: 30px; }
+
+.original .name {
+  text-transform: capitalize; }
 
 .details .sprite:hover {
   -webkit-transform: scale(2.5, 2.5) translate(50%, 50%);

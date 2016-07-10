@@ -1,6 +1,6 @@
 (function() {
   var height = 1000;
-  var width = 800;
+  var width = 1200;
   var pokemonId = 4;
   var nodeWidth = 100;
   var spriteHeight = 96;
@@ -11,7 +11,7 @@
                     .attr('width', width);
 
   function translateXY(x, y) {
-    return 'translate(' + x + ',' + y + ')'
+    return 'translate(' + x + ',' + y + ')';
   }
 
   // set initial position for the main node
@@ -23,8 +23,8 @@
   // add stat nodes' x and y coordinates, then return the pokemon
   function formatStats(pokemon, statNodeWidth) {
     pokemon.stats = pokemon.stats.map(function(stat) {
-      stat.x = Math.random() * width - statNodeWidth;
-      stat.y = Math.random() * height - statNodeWidth;
+      stat.x = Math.random() * (width - statNodeWidth * 2) + statNodeWidth;
+      stat.y = Math.random() * (height - statNodeWidth * 2) + statNodeWidth;
       return stat;
     });
   }
@@ -55,7 +55,8 @@
     node.append('svg:circle')
       .attr('class', 'detail-circle')
       .attr('r', size)
-      .attr('fill', 'orange');
+      .attr('fill', 'orange')
+      .attr('stroke', 'black');
 
     // add node's text
     node.append('text')
@@ -78,21 +79,22 @@
     var statNodes = pokeDetails.selectAll('.stat-node')
       .data(pokemon.stats)
       .enter().append('g')
-      .attr('transform', function(d) { return translateXY(d.x, d.y) })
+      .attr('transform', function(d) { return translateXY(d.x, d.y); })
       .call(d3.drag().on('drag', function(d) {
         d.x = d3.event.x;
         d.y = d3.event.y;
         d3.select(this).attr('transform', translateXY(d.x, d.y));
         drawnLinks
-          .attr('x1', function(d) { return d.x; })
-          .attr('y1', function(d) { return d.y; });
+          .attr('x1', function(t) { return t.x; })
+          .attr('y1', function(t) { return t.y; });
       }));
 
     // add stat nodes' circles
     statNodes.append('svg:circle')
       .attr('class', 'stat-circle')
       .attr('r', statNodeWidth)
-      .attr('fill', 'red');
+      .attr('fill', 'red')
+      .attr('stroke', 'black');
 
     // add stat nodes' text
     statNodes.append('text')
