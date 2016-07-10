@@ -9,6 +9,10 @@
                     .attr('height', height)
                     .attr('width', width);
 
+  function translateXY(x, y) {
+    return 'translate(' + x + ',' + y + ')'
+  }
+
   function randomColor() {
     var red = Math.floor(Math.random() * 255);
     var green = Math.floor(Math.random() * 255);
@@ -26,20 +30,19 @@
     // add node containers
     var nodes = pokeGraph.selectAll('.node')
       .data(pokemon)
-      .enter().append('g');
+      .enter().append('g')
+      .attr('transform', function(d) { return translateXY(d.x, d.y) });
 
     // add circles
     nodes.append('svg:circle')
       .attr('class', 'node')
-      .attr('cx', function(d) { return d.x; })
-      .attr('cy', function(d) { return d.y; })
       .attr('r', nodeWidth)
       .attr('fill', function() { return randomColor(); });
 
     // add text
     nodes.append('text')
-      .attr('dx', function(d) { return d.x - nodeWidth; })
-      .attr('dy', function(d) { return d.y - nodeWidth; })
+      .attr('dx', function(d) { return -nodeWidth; })
+      .attr('dy', function(d) { return -nodeWidth; })
       .text(function(d) { return d.name; });
   }
 

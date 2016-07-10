@@ -10,6 +10,10 @@
                     .attr('height', height)
                     .attr('width', width);
 
+  function translateXY(x, y) {
+    return 'translate(' + x + ',' + y + ')'
+  }
+
   // set initial position for the main node
   function addStartPosition(pokemon, coordinates) {
     pokemon.x = coordinates[0];
@@ -45,7 +49,7 @@
     var node = pokeDetails.selectAll('.detail-node')
       .data([pokemon])
       .enter().append('g')
-      .attr('transform', 'translate(' + pokemon.x + ',' + pokemon.y + ')');
+      .attr('transform', translateXY(pokemon.x, pokemon.y));
 
     // add node's circle
     node.append('svg:circle')
@@ -74,11 +78,11 @@
     var statNodes = pokeDetails.selectAll('.stat-node')
       .data(pokemon.stats)
       .enter().append('g')
-      .attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; })
+      .attr('transform', function(d) { return translateXY(d.x, d.y) })
       .call(d3.drag().on('drag', function(d) {
         d.x = d3.event.x;
         d.y = d3.event.y;
-        d3.select(this).attr('transform', 'translate(' + d.x + ',' + d.y + ')');
+        d3.select(this).attr('transform', translateXY(d.x, d.y));
         drawnLinks
           .attr('x1', function(d) { return d.x; })
           .attr('y1', function(d) { return d.y; });
