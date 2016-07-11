@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Pokemon Solid";
+  src: url("../../font/PokemonSolid.ttf");
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -7,7 +12,8 @@ body {
   background-image: -o-linear-gradient(top, yellow, purple);
   background-image: linear-gradient(top, yellow, purple);
 
-  font-family: Helvetica, sans-serif;
+  font-family: "Pokemon Solid", Helvetica, sans-serif;
+  letter-spacing: 0.1em;
 }
 
 h1, h2 {
@@ -16,8 +22,12 @@ h1, h2 {
 
 .details .name {
   text-transform: capitalize;
-  font-weight: bold;
   font-size: 30px;
+}
+
+.container svg {
+  display: block;
+  margin: 0 auto;
 }
 
 .details .sprite {

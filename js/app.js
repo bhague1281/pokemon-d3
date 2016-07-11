@@ -44,7 +44,7 @@
     nodes.append('text')
       .attr('class', 'name')
       .attr('dx', -nodeWidth)
-      .attr('dy', -nodeWidth)
+      .attr('dy', -nodeWidth - 10)
       .text(function(d) { return d.name; });
   }
 

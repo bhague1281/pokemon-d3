@@ -2,7 +2,7 @@
   var height = 1000;
   var width = 1200;
   var pokemonId = 4;
-  var nodeWidth = 100;
+  var nodeWidth = 120;
   var spriteHeight = 96;
 
   var pokeDetails = d3.select('#pokemon-details')
@@ -100,7 +100,7 @@
     statNodes.append('text')
       .attr('class', 'stat-name')
       .attr('text-anchor', 'middle')
-      .text(function(d) { return d.stat.name + ' base:' + d.base_stat; });
+      .text(function(d) { return d.stat.name + ' base: ' + d.base_stat; });
   }
 
   // add start position, get stats, then draw the links, main node, and stat nodes
