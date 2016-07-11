@@ -30,6 +30,10 @@ h1, h2 {
   margin: 0 auto;
 }
 
+.stat-circle, .stat-name {
+  cursor: move;
+}
+
 .details .sprite {
   &:hover {
     -webkit-transform: scale(2.5, 2.5) translate(50%, 50%);
