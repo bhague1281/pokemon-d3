@@ -7,15 +7,18 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: -webkit-linear-gradient(top, yellow, purple);
-  background-image: -moz-linear-gradient(top, yellow, purple);
-  background-image: -o-linear-gradient(top, yellow, purple);
-  background-image: linear-gradient(top, yellow, purple);
+  background-color: yellow;
   font-family: "Pokemon Solid", Helvetica, sans-serif;
   letter-spacing: 0.1em; }
 
 h1, h2 {
-  text-align: center; }
+  text-align: center;
+  font-size: 3em; }
+
+.spacer {
+  height: 100px;
+  margin: 50px 0;
+  background-color: black; }
 
 .details .name {
   text-transform: capitalize;
