@@ -37,7 +37,10 @@ h1, h2 {
   margin: 0 auto;
 }
 
-.stat-circle, .stat-name {
+.stat-circle,
+.stat-name,
+.node,
+.name {
   cursor: move;
 }
 

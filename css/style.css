@@ -28,7 +28,10 @@ h1, h2 {
   display: block;
   margin: 0 auto; }
 
-.stat-circle, .stat-name {
+.stat-circle,
+.stat-name,
+.node,
+.name {
   cursor: move; }
 
 .details .sprite:hover {

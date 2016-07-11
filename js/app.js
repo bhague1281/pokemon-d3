@@ -46,6 +46,13 @@
       .attr('dx', -nodeWidth)
       .attr('dy', -nodeWidth - 10)
       .text(function(d) { return d.name; });
+
+    // make draggable
+    nodes.call(d3.drag().on('drag', function(d) {
+      d.x = d3.event.x;
+      d.y = d3.event.y;
+      d3.select(this).attr('transform', translateXY(d.x, d.y));
+    }));
   }
 
   fetch('http://pokeapi.co/api/v2/pokemon/?limit=' + pokemonLimit, { cache: 'default' })
@@ -53,7 +60,6 @@
       return response.json();
     })
     .then(function(json) {
-      console.log('done');
       drawPokemonNodes(json);
     });
 }());
